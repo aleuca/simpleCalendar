@@ -1,24 +1,19 @@
-const mongoose = require('mongoose')
-const mongoUrl = 'mongodb://localhost/meetings'
-
+"use strict";
+exports.__esModule = true;
+var mongoose = require("mongoose");
+var mongoUrl = 'mongodb://localhost/meetings';
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoUrl);
-
-const meetingSchema = new mongoose.Schema({
+var meetingSchema = new mongoose.Schema({
     meetingStart: Date,
     meetingEnd: Date,
     meetingTopic: String,
     meetingParticipants: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }],
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }],
     recurring: [Date]
-})
-
-const Meeting = mongoose.model('Meeting', meetingSchema)
-
-module.exports = {
-    Meeting
-}
-
+});
+var Meeting = mongoose.model('Meeting', meetingSchema);
+exports.Meeting = Meeting;
 //add new meeting to db

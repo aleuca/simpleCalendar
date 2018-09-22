@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "lib":[
+        "es7"
+      ]
+    },
+    "compileOnSave": false,
+    "files": [
+      "./main.ts",
+      "./db/meetings.ts",
+      "./db/users.ts",
+      "./db/seed.ts",
+      "./utils/utils.ts"
+    ]
+}
