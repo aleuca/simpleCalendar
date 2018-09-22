@@ -34,15 +34,15 @@ app.use(express.static(__dirname + '/public'))
 app.get('/users/:id', function (req, res) {
     Promise.all([
         User.findById(req.params.id),
-        Meeting.find({ meetingParticipants: req.params.id })
-            .sort('meetingStart')
+        Meeting.find({ participants: req.params.id })
+            .sort('start')
     ])
         .then(([foundUser, foundMeetings]) => {
             res.render('users', {
                 userID: req.body.id,
                 username: foundUser,
                 numOfMeetings: foundMeetings.length,
-                nextMeeting: foundMeetings[0].meetingStart
+                nextMeeting: foundMeetings[0].start
             })
         })
         .catch((err) => {
@@ -64,18 +64,18 @@ app.get('/', function (req, res) {
     endOfYear.setDate(30)
 
     Promise.all([
-        Meeting.count({}),
+        Meeting.countDocuments({}),
         User.find({}),
         Meeting.find({
-            meetingStart: {
+            start: {
                 $gte: new Date()
             }
         })
-            .populate('meetingParticipants')
-            .sort('meetingStart')
+            .populate('participants')
+            .sort('start')
             .limit(20),
         Meeting.find({
-            meetingStart: {
+            start: {
                 $gte: beginningOfYear,
                 $lte: endOfYear
             }
@@ -141,10 +141,10 @@ app.get('/meetings/:id', function (req, res) {
  */
 app.post('/meeting', function (req, res) {
     //insert into database
-    const meetingTopic: string = req.body.topic
-    const meetingStart: Date = new Date(req.body['meeting-start-date'])
-    const meetingEnd: Date = new Date(req.body['meeting-end-date'])
-    const meetingParticipants: string[] = req.body['meeting-participants'].split(',')
+    const topic: string = req.body.topic
+    const start: Date = new Date(req.body['meeting-start-date'])
+    const end: Date = new Date(req.body['meeting-end-date'])
+    const participants: string[] = req.body['meeting-participants'].split(',')
     const recurrence: string = req.body.recurring
     const occurrenceNumber = parseInt(req.body['occurrence-number'])
     const recurringMeetingsArray: Date[] = []
@@ -153,19 +153,19 @@ app.post('/meeting', function (req, res) {
         //milliseconds in a week
         const oneWeek = 604800000
         for (let i = 1; i < occurrenceNumber; i++) {
-            recurringMeetingsArray.push(new Date(meetingStart.getTime() + oneWeek * i))
+            recurringMeetingsArray.push(new Date(start.getTime() + oneWeek * i))
         }
     }
 
-    User.find({ email: meetingParticipants })
+    User.find({ email: participants })
         .then((users) => {
             const usersToInsert: mongoose.Schema.Types.ObjectId[] = users.map(user => user._id)
 
             const newMeeting: IMeetingData = {
-                meetingStart,
-                meetingEnd,
-                meetingTopic,
-                meetingParticipants: usersToInsert,
+                start,
+                end,
+                topic,
+                participants: usersToInsert,
                 recurring: recurringMeetingsArray
             }
             console.log('Inserting new meeting:', newMeeting)

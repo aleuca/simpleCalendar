@@ -23,8 +23,8 @@ app.use(express.static(__dirname + '/public'));
 app.get('/users/:id', function (req, res) {
     Promise.all([
         users_1.User.findById(req.params.id),
-        meetings_1.Meeting.find({ meetingParticipants: req.params.id })
-            .sort('meetingStart')
+        meetings_1.Meeting.find({ participants: req.params.id })
+            .sort('start')
     ])
         .then(function (_a) {
         var foundUser = _a[0], foundMeetings = _a[1];
@@ -32,7 +32,7 @@ app.get('/users/:id', function (req, res) {
             userID: req.body.id,
             username: foundUser,
             numOfMeetings: foundMeetings.length,
-            nextMeeting: foundMeetings[0].meetingStart
+            nextMeeting: foundMeetings[0].start
         });
     })["catch"](function (err) {
         console.log('Error while fetching user:', err);
@@ -50,18 +50,18 @@ app.get('/', function (req, res) {
     endOfYear.setMonth(11);
     endOfYear.setDate(30);
     Promise.all([
-        meetings_1.Meeting.count({}),
+        meetings_1.Meeting.countDocuments({}),
         users_1.User.find({}),
         meetings_1.Meeting.find({
-            meetingStart: {
+            start: {
                 $gte: new Date()
             }
         })
-            .populate('meetingParticipants')
-            .sort('meetingStart')
+            .populate('participants')
+            .sort('start')
             .limit(20),
         meetings_1.Meeting.find({
-            meetingStart: {
+            start: {
                 $gte: beginningOfYear,
                 $lte: endOfYear
             }
@@ -120,10 +120,10 @@ app.get('/meetings/:id', function (req, res) {
  */
 app.post('/meeting', function (req, res) {
     //insert into database
-    var meetingTopic = req.body.topic;
-    var meetingStart = new Date(req.body['meeting-start-date']);
-    var meetingEnd = new Date(req.body['meeting-end-date']);
-    var meetingParticipants = req.body['meeting-participants'].split(',');
+    var topic = req.body.topic;
+    var start = new Date(req.body['meeting-start-date']);
+    var end = new Date(req.body['meeting-end-date']);
+    var participants = req.body['meeting-participants'].split(',');
     var recurrence = req.body.recurring;
     var occurrenceNumber = parseInt(req.body['occurrence-number']);
     var recurringMeetingsArray = [];
@@ -131,17 +131,17 @@ app.post('/meeting', function (req, res) {
         //milliseconds in a week
         var oneWeek = 604800000;
         for (var i = 1; i < occurrenceNumber; i++) {
-            recurringMeetingsArray.push(new Date(meetingStart.getTime() + oneWeek * i));
+            recurringMeetingsArray.push(new Date(start.getTime() + oneWeek * i));
         }
     }
-    users_1.User.find({ email: meetingParticipants })
+    users_1.User.find({ email: participants })
         .then(function (users) {
         var usersToInsert = users.map(function (user) { return user._id; });
         var newMeeting = {
-            meetingStart: meetingStart,
-            meetingEnd: meetingEnd,
-            meetingTopic: meetingTopic,
-            meetingParticipants: usersToInsert,
+            start: start,
+            end: end,
+            topic: topic,
+            participants: usersToInsert,
             recurring: recurringMeetingsArray
         };
         console.log('Inserting new meeting:', newMeeting);

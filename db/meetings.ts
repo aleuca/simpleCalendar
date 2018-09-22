@@ -20,10 +20,10 @@ const mongoUrl = 'mongodb://localhost/meetings'
 mongoose.connect(mongoUrl)
 
 const meetingSchema = new mongoose.Schema({
-    meetingStart: Date,
-    meetingEnd: Date,
-    meetingTopic: String,
-    meetingParticipants: [{
+    start: Date,
+    end: Date,
+    topic: String,
+    participants: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
@@ -49,10 +49,10 @@ async function createRandomMeetings(num: number): Promise <IMeeting[]> {
 
         meetings.push({
             //starting at 2000-01-01
-            meetingStart: new Date(start), 
-            meetingEnd: new Date(start + Math.floor(Math.random() * 28800000)), 
-            meetingTopic: faker.lorem.sentence(), 
-            meetingParticipants: randomNumUsers.map((user) => user._id), 
+            start: new Date(start), 
+            end: new Date(start + Math.floor(Math.random() * 28800000)), 
+            topic: faker.lorem.sentence(), 
+            participants: randomNumUsers.map((user) => user._id), 
             recurring: randomOccurences 
         })
     }
@@ -63,7 +63,7 @@ function averageParticipants(array: IMeeting[]): number {
     const participants: number[] = []
     let sum: number = 0
     array.forEach((meeting) => {
-        participants.push(meeting.meetingParticipants.length)
+        participants.push(meeting.participants.length)
     })
 
     participants.forEach((num: number) => {

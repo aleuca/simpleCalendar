@@ -50,10 +50,10 @@ var mongoUrl = 'mongodb://localhost/meetings';
  */
 mongoose.connect(mongoUrl);
 var meetingSchema = new mongoose.Schema({
-    meetingStart: Date,
-    meetingEnd: Date,
-    meetingTopic: String,
-    meetingParticipants: [{
+    start: Date,
+    end: Date,
+    topic: String,
+    participants: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         }],
@@ -84,10 +84,10 @@ function createRandomMeetings(num) {
                     }
                     meetings.push({
                         //starting at 2000-01-01
-                        meetingStart: new Date(start),
-                        meetingEnd: new Date(start + Math.floor(Math.random() * 28800000)),
-                        meetingTopic: faker.lorem.sentence(),
-                        meetingParticipants: randomNumUsers.map(function (user) { return user._id; }),
+                        start: new Date(start),
+                        end: new Date(start + Math.floor(Math.random() * 28800000)),
+                        topic: faker.lorem.sentence(),
+                        participants: randomNumUsers.map(function (user) { return user._id; }),
                         recurring: randomOccurences
                     });
                     _a.label = 3;
@@ -104,7 +104,7 @@ function averageParticipants(array) {
     var participants = [];
     var sum = 0;
     array.forEach(function (meeting) {
-        participants.push(meeting.meetingParticipants.length);
+        participants.push(meeting.participants.length);
     });
     participants.forEach(function (num) {
         sum += num;

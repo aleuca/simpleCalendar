@@ -11,17 +11,17 @@ export interface IUser extends mongoose.Document {
 }
 
 export interface IMeeting extends mongoose.Document {
-    meetingStart?: Date,
-    meetingEnd?: Date,
-    meetingTopic?: String,
-    meetingParticipants?: mongoose.Schema.Types.ObjectId[],
+    start?: Date,
+    end?: Date,
+    topic?: String,
+    participants?: mongoose.Schema.Types.ObjectId[],
     recurring?: Date[]
 }
 
 export interface IMeetingData {
-    meetingStart?: Date,
-    meetingEnd?: Date,
-    meetingTopic?: String,
-    meetingParticipants?: mongoose.Schema.Types.ObjectId[],
+    start?: Date,
+    end?: Date,
+    topic?: String,
+    participants?: mongoose.Schema.Types.ObjectId[],
     recurring?: Date[]
 }
