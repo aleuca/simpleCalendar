@@ -1,0 +1,11 @@
+html
+    head
+        title='Meeting App'
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css', rel='stylesheet')
+    body
+    div(class='ui container')
+        div(class='ui items')
+            div(class='ui content')
+                p(class='ui header')=`Topic: ${meeting.meetingTopic}`
+                p(class='ui header')=`Duration: ${Math.floor((meeting.meetingEnd - meeting.meetingStart) / 1000 / 60)} minutes`
+                p(class='ui header')=`Ocurrences: ${meeting.recurring.length}`

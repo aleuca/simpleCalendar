@@ -1,0 +1,30 @@
+html
+    head
+        title='Meeting App'
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css', rel='stylesheet')
+    body(class='landing-page')
+        h1(id='landing-header')="landing"
+        form(action='/createRandom' class='ui form' method='POST')
+            button(title='meetings' type='submit')='Create 5000 random meetings'
+        a(id='create-new-meeting' class='ui blue inverted button' href='/newMeeting') Create New Meeting
+        ul
+            li()=`total amount of meetings booked: ${numOfMeetings}`
+            li()=`average number of meetings per month ${avgMeetings}`
+            li()=`average number of people in the next 20 meetings: ${average}`
+        ol
+            each user in users
+                li
+                    a(href=`/users/${user._id}`)=`${user.name}`
+        h2()='Upcoming Meetings'
+        ul
+            each meeting in nextTwenty.slice(0,5)
+                h4='Meeting Topic:'
+                p=`${meeting.meetingTopic}`
+                h4='Meeting Date:'
+                p=`${meeting.meetingStart}`
+                h4=`ocurrences: ${meeting.recurring.length}`
+                a(href=`/meetings/${meeting._id}`)=`Meeting Details`
+                h4='Meeting Participants:'
+                ul
+                    each user in meeting.meetingParticipants
+                        li=`${user.name}`

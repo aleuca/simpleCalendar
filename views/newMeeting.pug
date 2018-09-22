@@ -1,0 +1,27 @@
+html
+    head
+        title='Meeting App'
+        link(href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css', rel='stylesheet')
+    body
+    div(class='ui container')
+    form(action='/' class='ui form' method='POST' id='new-meeting-form')
+        div.form-group(class='field')
+            label(for='topic') Meeting Topic:
+            input(type='text' name='topic')
+        div.form-group(class='field')
+            label(for='meeting-start-date') Meeting Start Date/Time:
+            input(type='datetime-local' name='meeting-start-date' )
+        div.form-group(class='field')
+            label(for='meeting-end-date') Meeting End Date/Time:
+            input(type='datetime-local' name='meeting-end-date' )
+        div.form-group(class='field')
+            label(for='meeting-participants') Meeting Participants:
+            input(type='text' name='meeting-participants' )
+        div.form-group(class='recurring')
+            label(for='recurring') Recurring Every Week:
+            input(type='checkbox' name='recurring')
+            label(for='recurring') Number of Occurrences:
+            input(type='text' name='occurrence-number')
+        button(class='ui blue basic button' type='submit') Create Meeting
+        a(class='ui blue basic button' href='/' style='float: right') Back to stats page
+
