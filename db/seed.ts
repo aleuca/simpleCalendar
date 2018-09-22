@@ -1,6 +1,14 @@
+/**
+ * Module imports
+ */
+
 import { User } from './users'
 import { Meeting } from './meetings'
 import { IUserData, IUser } from '../interface'
+
+/**
+ * Module variables
+ */
 
 const userData: IUserData[] = [
     {
@@ -46,6 +54,9 @@ const userData: IUserData[] = [
 
 ]
 
+/**
+ * Module
+ */
 
 Promise.all([
     Meeting.remove({}),

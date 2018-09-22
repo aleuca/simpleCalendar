@@ -11,6 +11,5 @@
       "./db/meetings.ts",
       "./db/users.ts",
       "./db/seed.ts",
-      "./utils/utils.ts"
     ]
 }

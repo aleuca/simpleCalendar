@@ -1,8 +1,16 @@
 "use strict";
+/**
+ * Module imports
+ */
 exports.__esModule = true;
 var mongoose = require("mongoose");
+/**
+ * Module variables
+ */
 var mongoUrl = 'mongodb://localhost/meetings';
-mongoose.Promise = global.Promise;
+/**
+ * Module
+ */
 mongoose.connect(mongoUrl);
 var userSchema = new mongoose.Schema({
     name: String,
@@ -10,4 +18,3 @@ var userSchema = new mongoose.Schema({
 });
 var User = mongoose.model('User', userSchema);
 exports.User = User;
-//add new meeting to db

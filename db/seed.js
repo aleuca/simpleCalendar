@@ -1,7 +1,13 @@
 "use strict";
+/**
+ * Module imports
+ */
 exports.__esModule = true;
 var users_1 = require("./users");
 var meetings_1 = require("./meetings");
+/**
+ * Module variables
+ */
 var userData = [
     {
         name: 'Alina',
@@ -44,6 +50,9 @@ var userData = [
         email: 'camiel@camiel.com'
     },
 ];
+/**
+ * Module
+ */
 Promise.all([
     meetings_1.Meeting.remove({}),
     users_1.User.remove({})

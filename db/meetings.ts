@@ -1,6 +1,21 @@
+/**
+ * Module imports
+ */
+
 import * as mongoose from 'mongoose'
-import { IMeeting } from '../interface'
+import * as faker from 'faker'
+import { IMeeting, IMeetingData, IUser } from '../interface'
+import { User } from './users'
+
+/**
+ * Module variables
+ */
+
 const mongoUrl = 'mongodb://localhost/meetings'
+
+/**
+ * Module
+ */
 
 mongoose.connect(mongoUrl)
 
@@ -17,6 +32,58 @@ const meetingSchema = new mongoose.Schema({
 
 const Meeting = mongoose.model<IMeeting>('Meeting', meetingSchema)
 
-export { Meeting }
+async function createRandomMeetings(num: number): Promise <IMeeting[]> {
+    const meetings: IMeetingData[] = []
+    for(let i = 0; i < num; i++) {
+        const randomOccurences: Date[] = []
+        const randomNumUsers: IUser[] = await User.aggregate(
+            [ {$sample: { size: Math.floor(1 + Math.random() * 10) }} ]
+         )
+        const start = Math.floor(946684800000 + Math.random() * 2838240000000)
 
-//add new meeting to db
+        for(let j = 0; j < Math.floor(Math.random() * 10); j++) {
+            const oneWeek = 604800000
+            let newOccurrence = start + oneWeek * j
+            randomOccurences.push(new Date(newOccurrence))
+        }
+
+        meetings.push({
+            //starting at 2000-01-01
+            meetingStart: new Date(start), 
+            meetingEnd: new Date(start + Math.floor(Math.random() * 28800000)), 
+            meetingTopic: faker.lorem.sentence(), 
+            meetingParticipants: randomNumUsers.map((user) => user._id), 
+            recurring: randomOccurences 
+        })
+    }
+    return Meeting.insertMany(meetings)
+}
+
+function averageParticipants(array: IMeeting[]): number {
+    const participants: number[] = []
+    let sum: number = 0
+    array.forEach((meeting) => {
+        participants.push(meeting.meetingParticipants.length)
+    })
+
+    participants.forEach((num: number) => {
+        sum += num
+    })
+
+    return sum / participants.length
+}
+
+function avgMeetingsMonth(meetingsInAYear: IMeeting[]):number {
+    return meetingsInAYear.length / 12
+}
+
+/**
+ * Module exports
+ */
+
+export { 
+    Meeting, 
+    createRandomMeetings, 
+    averageParticipants, 
+    avgMeetingsMonth 
+}
