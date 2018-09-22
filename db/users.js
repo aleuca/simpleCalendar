@@ -1,18 +1,20 @@
-const mongoose = require('mongoose')
-const mongoUrl = 'mongodb://localhost/meetings'
-
-mongoose.Promise = global.Promise;
+"use strict";
+/**
+ * Module imports
+ */
+exports.__esModule = true;
+var mongoose = require("mongoose");
+/**
+ * Module variables
+ */
+var mongoUrl = 'mongodb://localhost/meetings';
+/**
+ * Module
+ */
 mongoose.connect(mongoUrl);
-
-const userSchema = new mongoose.Schema({
+var userSchema = new mongoose.Schema({
     name: String,
-    email: String,
-})
-
-const User = mongoose.model('User', userSchema)
-
-module.exports = {
-    User
-}
-
-//add new meeting to db
+    email: String
+});
+var User = mongoose.model('User', userSchema);
+exports.User = User;

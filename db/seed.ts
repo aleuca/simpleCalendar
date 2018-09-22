@@ -1,14 +1,16 @@
-"use strict";
 /**
  * Module imports
  */
-exports.__esModule = true;
-var users_1 = require("./users");
-var meetings_1 = require("./meetings");
+
+import { User } from './users'
+import { Meeting } from './meetings'
+import { IUserData, IUser } from '../interface'
+
 /**
  * Module variables
  */
-var userData = [
+
+const userData: IUserData[] = [
     {
         name: 'Alina',
         email: 'alina@alina.com'
@@ -49,19 +51,23 @@ var userData = [
         name: 'Camiel',
         email: 'camiel@camiel.com'
     },
-];
+
+]
+
 /**
  * Module
  */
+
 Promise.all([
-    meetings_1.Meeting.remove({}),
-    users_1.User.remove({})
+    Meeting.remove({}),
+    User.remove({})
 ])
-    .then(function () { return users_1.User.insertMany(userData); })
-    .then(function (users) {
-    console.log('created users', users);
-    process.exit(0);
-})["catch"](function (err) {
-    console.log(err);
-    process.exit(1);
-});
+    .then(() => User.insertMany(userData))
+    .then((users: IUser[]) => {
+        console.log('created users', users)
+        process.exit(0)
+    })
+    .catch((err) => {
+        console.log(err)
+        process.exit(1)
+    })

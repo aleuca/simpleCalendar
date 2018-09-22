@@ -10,7 +10,7 @@ html
         ul
             li()=`total amount of meetings booked: ${numOfMeetings}`
             li()=`average number of meetings per month ${avgMeetings}`
-            li()=`average number of people in the next 20 meetings: ${average}`
+            li()=`average number of people in the next 20 meetings: ${average || 0}`
         ol
             each user in users
                 li
@@ -19,12 +19,12 @@ html
         ul
             each meeting in nextTwenty.slice(0,5)
                 h4='Meeting Topic:'
-                p=`${meeting.meetingTopic}`
+                p=`${meeting.topic}`
                 h4='Meeting Date:'
-                p=`${meeting.meetingStart}`
-                h4=`ocurrences: ${meeting.recurring.length}`
+                p=`${meeting.start}`
+                h4=`occurrences: ${meeting.recurring.length}`
                 a(href=`/meetings/${meeting._id}`)=`Meeting Details`
                 h4='Meeting Participants:'
                 ul
-                    each user in meeting.meetingParticipants
+                    each user in meeting.participants
                         li=`${user.name}`
