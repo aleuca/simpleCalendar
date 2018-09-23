@@ -3,7 +3,8 @@ A simple calendar app for scheduling meetings with users.
 
 ## Usage
 
-Make sure you have MongoDB installed on your client \n
+Make sure you have MongoDB installed on your client.
+
 Visit `http://localhost:5000` for the landing page.
 
 ## Setup
