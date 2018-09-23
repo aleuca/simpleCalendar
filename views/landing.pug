@@ -2,29 +2,38 @@ html
     head
         title='Meeting App'
         link(href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css', rel='stylesheet')
+        link(href='/main.css' rel='stylesheet')
     body(class='landing-page')
-        h1(id='landing-header')="landing"
-        form(action='/createRandom' class='ui form' method='POST')
-            button(title='meetings' type='submit')='Create 5000 random meetings'
-        a(id='create-new-meeting' class='ui blue inverted button' href='/newMeeting') Create New Meeting
-        ul
-            li()=`total amount of meetings booked: ${numOfMeetings}`
-            li()=`average number of meetings per month ${avgMeetings}`
-            li()=`average number of people in the next 20 meetings: ${average || 0}`
-        ol
-            each user in users
-                li
-                    a(href=`/users/${user._id}`)=`${user.name}`
-        h2()='Upcoming Meetings'
-        ul
-            each meeting in nextTwenty.slice(0,5)
-                h4='Meeting Topic:'
-                p=`${meeting.topic}`
-                h4='Meeting Date:'
-                p=`${meeting.start}`
-                h4=`occurrences: ${meeting.recurring.length}`
-                a(href=`/meetings/${meeting._id}`)=`Meeting Details`
-                h4='Meeting Participants:'
-                ul
-                    each user in meeting.participants
-                        li=`${user.name}`
+        div(class='simple-cal')
+            h1(id='page-header')='SimpleCal for SimplePeople'
+        div(class='under-header')
+            div(class='action')
+                form(action='/createRandom' class='ui form action-item' method='POST')
+                    button(title='meetings' type='submit' class= 'ui blue button action-item')='Create 5000 random meetings'
+                a(class='ui blue inverted button action-item' id='new-meeting' href='/newMeeting')='Create New Meeting'
+                ul(class='stats action-item')
+                    h4()='Calendar Stats'
+                    li()=`total amount of meetings booked: ${numOfMeetings}`
+                    li()=`average number of meetings per month ${avgMeetings}`
+                    li()=`average number of people in the next 20 meetings: ${average || 0}`
+            div(class='users')
+                ol(class='user-list')
+                    h4(class='user-header')='Users Active in This Calendar'
+                    each user in users
+                        li
+                            a(href=`/users/${user._id}` class='each-user')=`${user.name}`
+            div(class='meeting-div')
+                h2(class='panel upcoming')='Upcoming Meetings'
+                ul(class='meeting-list')
+                    each meeting in nextTwenty.slice(0,5)
+                        div(class='meeting-detail')
+                            h4(class='meeting-spec')='Meeting Topic:'
+                            p=`${meeting.topic}`
+                            h4(class='meeting-spec')='Meeting Date:'
+                            p=`${meeting.start}`
+                            h4(class='meeting-spec')=`occurrences: ${meeting.recurring.length}`
+                            h4(class='meeting-spec')='Meeting Participants:'
+                            ul
+                                each user in meeting.participants
+                                    li=`${user.name}`
+                            a(href=`/meetings/${meeting._id}` class='meeting-spec' id='see-more')=`Meeting Details`

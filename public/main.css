@@ -1,0 +1,169 @@
+/* 
+=======
+LANDING PAGE STYLES
+=======
+ */
+
+
+/* BODY COMPONENT */
+
+.under-header {
+    position: relative;
+    margin-top: 100px;
+    margin-right: 0;
+}
+
+.simple-cal {
+    color: #0c2c29;
+    text-align: center;
+}
+
+#page-header {
+    font-size: 30px;
+    text-shadow: 2px 2px #207068;
+}
+
+/* USER COMPONENT */
+
+.users {
+    width: 100%;
+    height: 200px;
+    position: initial;
+}
+
+.user-list {
+    position: absolute;
+    right: 70;
+    top: 0;
+    text-align: left;
+    list-style-type: none;
+    background-color: #c5f5f0;
+    padding: 15px;
+}
+
+.each-user {
+    font-size: 16px;
+}
+
+.each-user:hover {
+    color: white;
+    font-weight: bold;
+    text-shadow: 2px 2px #32a1ce;
+}
+
+/* STATS COMPONENT */
+
+.stats {
+    float: left;
+}
+
+.action {
+    position: absolute;
+    display: grid;
+    padding: 20px;
+    margin: 0;
+    width: 500px;
+    height: 300px;
+}
+
+.action-item {
+    vertical-align: middle;
+    position: relative;
+}
+
+button {
+    width: 300px;
+    height: 40px;
+}
+
+/* MEETING COMPONENT */
+
+.meeting-detail {
+    border: thick double #32a1ce;
+    padding: 30px;
+    height: 480px;
+    width: 500px;
+    margin-top: 0;
+    margin-bottom: 2%;
+    margin-right: 0;
+    margin-left: 0;
+    position: relative;
+}
+
+.meeting-list {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.meeting-div {
+    margin-top: 100px;
+}
+
+.upcoming {
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.meeting-spec {
+    margin: 2% 0;
+    color: #32a1ce;
+}
+
+#new-meeting {
+    width: 300px;
+}
+
+#see-more {
+    position: absolute;
+    bottom: 6;
+    font-weight: bold; 
+    font-size: 18px;
+    border: solid #2c9c91 2px;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+#see-more:hover {
+    background-color: #c5f5f0;
+}
+
+/* 
+=======
+MEETING/USER PAGE STYLES
+=======
+ */
+
+.container.display {
+    border: solid black 2px;
+    border-radius: 10px;
+}
+
+.content.display {
+    padding: 40px;
+}
+
+button.display {
+    padding-right: 0;
+    float: right;
+}
+
+ /* 
+=======
+NEW MEETING FORM PAGE STYLES
+=======
+ */
+
+#new-meeting-form {
+    padding: 100px;
+}
+
+.field {
+    padding-top: 10px;
+}
+
+.new-meeting-button {
+    display: inline-block;
+    width: 300px;
+    height: 36px;
+}

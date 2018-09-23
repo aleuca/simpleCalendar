@@ -2,10 +2,12 @@ html
     head
         title='Meeting App'
         link(href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css', rel='stylesheet')
+        link(href='/main.css' rel='stylesheet')
     body
-    div(class='ui container')
+    div(class='ui container display')
         div(class='ui items')
-            div(class='ui content')
+            div(class='ui content display')
                 h1(class='ui header')=`${username.email}`
                 p()=`number of meetings: ${numOfMeetings}`
                 p()=`next meeting date: ${nextMeeting}`
+                a(class='ui blue basic button display' href='/') Back to calendar
