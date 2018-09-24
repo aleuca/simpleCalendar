@@ -35,14 +35,22 @@ app.get('/users/:id', function (req, res) {
     Promise.all([
         User.findById(req.params.id),
         Meeting.find({ participants: req.params.id })
+            .sort('start'),
+        Meeting.find({ 
+            participants: req.params.id,
+            start: {
+                $gte: new Date()
+            }
+        })
             .sort('start')
+            .limit(1)
     ])
-        .then(([foundUser, foundMeetings]) => {
+        .then(([foundUser, foundMeetings, nextMeeting]) => {
             res.render('users', {
                 userID: req.body.id,
                 username: foundUser,
                 numOfMeetings: foundMeetings.length,
-                nextMeeting: foundMeetings[0].start
+                nextMeeting: nextMeeting[0].start
             })
         })
         .catch((err) => {

@@ -24,15 +24,23 @@ app.get('/users/:id', function (req, res) {
     Promise.all([
         users_1.User.findById(req.params.id),
         meetings_1.Meeting.find({ participants: req.params.id })
+            .sort('start'),
+        meetings_1.Meeting.find({
+            participants: req.params.id,
+            start: {
+                $gte: new Date()
+            }
+        })
             .sort('start')
+            .limit(1)
     ])
         .then(function (_a) {
-        var foundUser = _a[0], foundMeetings = _a[1];
+        var foundUser = _a[0], foundMeetings = _a[1], nextMeeting = _a[2];
         res.render('users', {
             userID: req.body.id,
             username: foundUser,
             numOfMeetings: foundMeetings.length,
-            nextMeeting: foundMeetings[0].start
+            nextMeeting: nextMeeting[0].start
         });
     })["catch"](function (err) {
         console.log('Error while fetching user:', err);
