@@ -31,7 +31,8 @@ html
                             p=`${meeting.topic}`
                             h4(class='meeting-spec')='Meeting Date:'
                             p=`${meeting.start}`
-                            h4(class='meeting-spec')=`occurrences: ${meeting.recurring.length}`
+                            h4(class='meeting-spec')='occurrences:'
+                            p=`${meeting.recurring.length}`
                             h4(class='meeting-spec')='Meeting Participants:'
                             ul
                                 each user in meeting.participants
