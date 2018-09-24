@@ -10,4 +10,4 @@ html
                 p(class='ui header')=`Topic: ${meeting.topic}`
                 p(class='ui header')=`Duration: ${Math.floor((meeting.end - meeting.start) / 1000 / 60)} minutes`
                 p(class='ui header')=`Occurrences: ${meeting.recurring.length}`
-                a(class='ui blue basic button display' href='/') Back to calendar
+                a(class='ui blue basic button display' href='/')='Back to calendar'

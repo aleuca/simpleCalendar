@@ -8,22 +8,22 @@ html
     form(action='/meeting' class='ui form' method='POST' id='new-meeting-form')
         h2='Plan a New Meeting'
         div.form-group(class='field')
-            label(for='topic') Meeting Topic:
+            label(for='topic')='Meeting Topic:'
             input(type='text' name='topic')
         div.form-group(class='field')
-            label(for='meeting-start-date') Meeting Start Date/Time:
+            label(for='meeting-start-date')='Meeting Start Date/Time:'
             input(type='datetime-local' name='meeting-start-date' )
         div.form-group(class='field')
-            label(for='meeting-end-date') Meeting End Date/Time:
+            label(for='meeting-end-date')='Meeting End Date/Time:'
             input(type='datetime-local' name='meeting-end-date' )
         div.form-group(class='field')
-            label(for='meeting-participants') Meeting Participants:
+            label(for='meeting-participants')='Meeting Participants (separated by commas):'
             input(type='text' name='meeting-participants' )
         div.form-group(class='field')
-            label(for='recurring') Recurring Every Week:
+            label(for='recurring')='Recurring Every Week:'
             input(type='checkbox' name='recurring')
-            label(for='recurring') Number of Occurrences:
+            label(for='recurring')='Number of Occurrences:'
             input(type='text' name='occurrence-number')
-        button(class='ui blue basic button new-meeting-button' type='submit') Create Meeting
-        a(class='ui blue basic button' href='/') Back to calendar
+        button(class='ui blue basic button new-meeting-button' type='submit')='Create Meeting'
+        a(class='ui blue basic button' href='/')='Back to calendar'
 
